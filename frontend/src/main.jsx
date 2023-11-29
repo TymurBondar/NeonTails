@@ -3,12 +3,28 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './index.css';
 import Root from './routes/Root';
+import Artists from './routes/Artists';
+import Exhibitions from './routes/Exhibitions';
 
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />
+    element: <Root />,
+    children:[
+      {
+        path: '/',
+        element: <>Welcome to the homepage!</>,
+      },
+      {
+        path: '/artists',
+        element: <Artists/>
+      },
+      {
+        path: '/exhibitions',
+        element: <Exhibitions/>
+      },
+    ]
   }
 ])
 
