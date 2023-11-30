@@ -1,15 +1,16 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.orm import validates
-from sqlalchemy import MetaData
+# from sqlalchemy import MetaData
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.associationproxy import association_proxy
+from config import db
 
-metadata = MetaData(naming_convention={
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-})
+# metadata = MetaData(naming_convention={
+#     "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+# })
 
-# re initialize using update metadata
-db = SQLAlchemy(metadata=metadata)
+# # re initialize using update metadata
+# db = SQLAlchemy(metadata=metadata)
 
 
 # artist class for db
@@ -18,9 +19,9 @@ class artist(db.Model, SerializerMixin):
 
     # Columns for the table nothing here should be null
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String, unique = True, nullable = False)
+    username = db.Column(db.String, unique = True, nullable = False)
     bio = db.Column(db.String, unique = False, nullable = False)
-    # password = db.Column(db.string, nullable = False)
+    password = db.Column(db.string, nullable = False)
 
     # Created relationship that links an artist to a AIA column 
     # NOTE: this needs to be closed back to the artist-AIA relationship

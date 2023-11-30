@@ -1,12 +1,17 @@
-from models import db,artist,image,AIA
-from app import app
+from models import artist,image,AIA
+from config import db, app
 from random import choice
+import bcrypt
 
 # created sample artist currently with no authentication just to seed the tables
 def create_sample_artist():
-    artist1 = artist(name="lettuce1",bio = "random bio with stuff in it")
-    artist2 = artist(name="lettuce2",bio = "random bio with stuff in it")
-    artist3 = artist(name="lettuce3",bio = "random bio with stuff in it")
+    def encrypt_password(password):
+        salt = bcrypt.gensalt()
+        hashed_pass = bcrypt.hashpw(password.encode("utf-8"), salt=salt)
+        return hashed_pass.decode("utf-8")
+    artist1 = artist(username="lettuce1",bio = "random bio with stuff in it", password= encrypt_password("password123"))
+    artist2 = artist(username="lettuce2",bio = "random bio with stuff in it", password= encrypt_password("stuffandmorestuff"))
+    artist3 = artist(username="lettuce3",bio = "random bio with stuff in it", password= encrypt_password("lettuceandtomato"))
     
     return [artist1,artist2,artist3]
 
