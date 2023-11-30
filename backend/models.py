@@ -21,7 +21,7 @@ class artist(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String, unique = True, nullable = False)
     bio = db.Column(db.String, unique = False, nullable = False)
-    password = db.Column(db.string, nullable = False)
+    password = db.Column(db.String, nullable = False)
 
     # Created relationship that links an artist to a AIA column 
     # NOTE: this needs to be closed back to the artist-AIA relationship
