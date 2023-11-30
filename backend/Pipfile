@@ -14,6 +14,7 @@ jinja2 = "*"
 flask-cors = "*"
 bcrypt = "*"
 python-dotenv = "*"
+middleware = "*"
 
 [dev-packages]
 
