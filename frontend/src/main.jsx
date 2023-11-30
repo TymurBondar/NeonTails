@@ -9,6 +9,7 @@ import ThemedExhibition from './routes/ThemedExhibition';
 import Home from './routes/Home';
 import ArtistPage from './routes/ArtistPage';
 import Signin from './routes/Signin';
+import NotFound from './routes/NotFound';
 
 
 const router = createBrowserRouter([
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: '/signin',
         element: <Signin/>
+      },
+      {
+        path: '*',
+        element: <NotFound/>
       },
     ]
   }
