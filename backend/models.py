@@ -49,7 +49,7 @@ class image(db.Model, SerializerMixin):
     artist = association_proxy("AIA", "artist")
 
     # creates serialization rules to avoid cascading when accessing image data from the AIA
-    serialize_rules = ("-AIA.img",)
+    serialize_rules = ("-AIA.image",)
 
 
 class AIA(db.Model, SerializerMixin):

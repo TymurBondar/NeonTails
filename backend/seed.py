@@ -17,9 +17,9 @@ def create_sample_artist():
 
 # created sample images with no images yet beacuse theyre not up
 def create_sample_images():
-    image1 = image(name="name1",link = "definitelylink1")
-    image2 = image(name="name2",link = "definitelylink2")
-    image3 = image(name="name3",link = "definitelylink3")
+    image1 = image(name="elephant",link = "https://static.displate.com/857x1200/displate/2022-12-16/61aac9750fcf60be73e1eb48ea252178_99e7452b66a3dde6ef93c2402df907cc.jpg")
+    image2 = image(name="dog",link = "https://static.displate.com/857x1200/displate/2022-08-15/f66919cf8b5f967cab48c2385ea4f3ca_9d26ebeb8b1ba7b1b6b22699f5282f35.jpg")
+    image3 = image(name="car",link = "https://static.displate.com/857x1200/displate/2022-12-15/b26f1f5b6578a79b2cebfbad72411252_16922d65877ad47895e139561fc4fe32.jpg")
     
     return [image1,image2,image3]
 
