@@ -1,14 +1,15 @@
 from flask import Flask, request,make_response,jsonify
 from flask_cors import CORS
 from flask_migrate import Migrate
-from models import db, artist,image,AIA
+from models import artist,image,AIA
+from config import db, app
 
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
-CORS(app, resources={r"/*": {"origins": "*"}})
+# app = Flask(__name__)
+# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
+# CORS(app, resources={r"/*": {"origins": "*"}})
 
-migrate = Migrate(app,db)
-db.init_app(app)
+# migrate = Migrate(app,db)
+# db.init_app(app)
 
 """
 
@@ -58,6 +59,8 @@ def view_all_images():
     Association ROUTES
 
 """
+
+# creating/adding a painting should let you add the id of an artist to add ID the artist who "created" it
 # @app.route('/api/<int:artist_id>/images', methods=['GET'])
 # def add_new_image(artist_id:int):
 #     # matching_artist = artist.query.filter(artist.id == artist_id).first()
