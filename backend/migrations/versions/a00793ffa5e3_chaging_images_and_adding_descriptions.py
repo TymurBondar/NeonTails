@@ -1,8 +1,8 @@
-"""fixing db
+"""chaging images and adding descriptions
 
-Revision ID: 037e8a33d4ac
+Revision ID: a00793ffa5e3
 Revises: 
-Create Date: 2023-11-30 10:49:01.665029
+Create Date: 2023-11-30 23:25:17.176112
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '037e8a33d4ac'
+revision = 'a00793ffa5e3'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,6 +30,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('link', sa.String(), nullable=True),
+    sa.Column('description', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('link'),
     sa.UniqueConstraint('name')
