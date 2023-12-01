@@ -11,7 +11,7 @@ function Signin() {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://127.0.0.1:5000/artists/login", {
+      const response = await fetch("http://127.0.0.1:5000/artist/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),

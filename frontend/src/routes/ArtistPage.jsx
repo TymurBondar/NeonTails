@@ -26,9 +26,9 @@ function ArtistPage() {
   return (
     <div className="flex flex-col items-center text-center mt-12 w-full">
       This is a page of Artist with the ID of {id}
-      <div className="flex flex-row space-x-24 justify-center w-full mt-24">
+      <div className="flex flex-row space-x-24 justify-center w-full mt-16">
         {images.map((image) => (
-          <Card key={image.id} image={image.link} />
+          <Card key={image.id} image={image} />
         ))}
       </div>
     </div>
