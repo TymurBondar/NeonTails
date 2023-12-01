@@ -24,7 +24,7 @@ migrate = Migrate(app,db)
 
 db.init_app(app)
 
-CORS(app)
+CORS(app, supports_credentials=True)
 
 load_dotenv()
 

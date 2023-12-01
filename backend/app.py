@@ -22,7 +22,11 @@ def index():
 # testing auth
 @app.route('/api/message', methods=['GET'])
 def view_message():
+    print("yeee")
     authorization = authorize_user()
+    print(session)
+    print(authorization)
+    print("yerrrrr")
     if authorization.status_code == 401:
         return make_response({"error": "access denied"},401)
     else:
@@ -98,33 +102,25 @@ def add_new_artist():
 # patch request to edit an image in db
 @app.route('/api/image/update/<int:image_id>', methods=['PATCH'])
 def update_artist_with_ID(image_id:int):
-    authorization = authorize_user()
-    if authorization.status_code == 401:
-        return make_response({"error": "access denied"},401)
-    else:
-        matching_image = image.query.filter(image.id == image_id).first()
-        if not matching_image:
-            return make_response(jsonify({"error": f"Artist ID `{image_id}` not found in database."}), 404)
-        PATCH_REQ = request.get_json()
-        for attribute in PATCH_REQ:
-            setattr(matching_image, attribute, PATCH_REQ[attribute])
-        db.session.add(matching_image)
-        db.session.commit()
-        return make_response(jsonify(matching_image.to_dict()),200)
+    matching_image = image.query.filter(image.id == image_id).first()
+    if not matching_image:
+        return make_response(jsonify({"error": f"Artist ID `{image_id}` not found in database."}), 404)
+    PATCH_REQ = request.get_json()
+    for attribute in PATCH_REQ:
+        setattr(matching_image, attribute, PATCH_REQ[attribute])
+    db.session.add(matching_image)
+    db.session.commit()
+    return make_response(jsonify(matching_image.to_dict()),200)
 
 # delete request to remove an artist from the db
 @app.route('/api/image/delete/<int:image_id>',methods=['DELETE'])
 def delete_artist(image_id:int):
-    authorization = authorize_user()
-    if authorization.status_code == 401:
-        return make_response({"error": "access denied"},401)
-    else:
-        matching_image = image.query.filter(image.id == image_id).first()
-        if not matching_image:
-            return make_response(jsonify({"error": f"Artist ID `{image_id}` not found in database."}), 404)
-        db.session.delete(matching_image)
-        db.session.commit()
-        return make_response(jsonify(matching_image.to_dict()),200)
+    matching_image = image.query.filter(image.id == image_id).first()
+    if not matching_image:
+        return make_response(jsonify({"error": f"Artist ID `{image_id}` not found in database."}), 404)
+    db.session.delete(matching_image)
+    db.session.commit()
+    return make_response(jsonify(matching_image.to_dict()),200)
 """
 
     Association ROUTES
@@ -219,18 +215,30 @@ def add_player():
 # post route to sigin and create a seccison for a user
 @app.route("/artist/signin", methods=["POST"])
 def player_login():
+    print("we're logging in")
     if request.method == "POST":
         payload = request.get_json()
         # look out for this line
+        print("whoa check me out")
+        print(payload)
         matching_artist = artist.query.filter(artist.username.like(f"%{payload['username']}%")).first()
         
+        print("hi there friend")
+        print(matching_artist)
         AUTHENTICATION_IS_SUCCESSFUL = bcrypt.checkpw(
             password=payload["password"].encode("utf-8"),
             hashed_password=matching_artist.password.encode("utf-8")
         )
+        print("are you the same")
+        print(payload["password"].encode("utf-8"))
+        print(matching_artist.password.encode("utf-8"))
 
         if matching_artist is not None and AUTHENTICATION_IS_SUCCESSFUL:
+            print("heres my id")
+            print(matching_artist.id)
             session["artist_id"] = matching_artist.id
+            print("super session secrets")
+            print(session["artist_id"])
             return make_response(
                 matching_artist.to_dict(only=("id", "username", "bio", "password")), 
                 200
@@ -251,10 +259,14 @@ def player_logout():
 
 @app.route("/auth")
 def authorize_user():
+    print("hi")
     user_id = session.get("artist_id")
+    print("hey")
+    print(user_id)
     if not user_id:
         return make_response({"error": "User account not authenticated. Please log in or sign up to continue using the application."}, 401)
     else:
+        print("whoa")
         matching_user = artist.query.filter(artist.id == user_id).first()
         if matching_user is not None:
             return(make_response(matching_user.to_dict(only=("id", "username", "bio", "password")),200))

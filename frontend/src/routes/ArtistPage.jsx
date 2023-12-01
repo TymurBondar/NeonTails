@@ -11,7 +11,9 @@ function ArtistPage() {
   //fetch database to see if the artists with that id exists
   //if artists exists, get the artists images in the list
   useEffect(() => {
-    fetch(`/api/${id}/images`)
+    fetch(`http://127.0.0.1:5000/api/${id}/images`, {
+      credentials: "same-origin"
+    })
       .then((res) => res.json())
       .then((data) => {
         let newImages = [];
@@ -19,7 +21,6 @@ function ArtistPage() {
           newImages.push(element.image);
         });
         setImages(newImages);
-        console.log(newImages);
       });
   }, []);
 

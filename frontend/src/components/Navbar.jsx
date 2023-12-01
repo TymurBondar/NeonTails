@@ -19,7 +19,10 @@ function Navbar() {
     localStorage.removeItem("user");
 
     // Log out the user in the backend
-    fetch("http://127.0.0.1:5000/artists/logout", { method: "DELETE" })
+    fetch("http://127.0.0.1:5000/artist/logout", { 
+      method: "DELETE",
+      credentials: "same-origin"
+    })
       .then((response) => response.json())
       .then((data) =>
         console.log(`${data} "I logged out the user from the backend!"`)
