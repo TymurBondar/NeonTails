@@ -40,6 +40,7 @@ class image(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String , unique = True, nullable = False)
     link = db.Column(db.String, unique = True, nullable = True)
+    description = db.Column(db.String, nullable = False)
 
     # Created relationship that links an artist to an AIA column
     # NOTE: this needs to be closed back to the image-AIA relationship

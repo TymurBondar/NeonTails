@@ -50,6 +50,54 @@ def view_artist_withID(artist_id:int):
         return make_response(jsonify({"error": f"artist_ID:{artist_id} not found"}))
     return make_response(jsonify(matching_artist.to_dict()),200)
 
+# post request to add an artist to the db
+@app.route('/api/artist/add', methods =['POST'])
+def add_new_artist():
+    authorization = authorize_user()
+    if authorization.status_code == 401:
+        return make_response({"error": "access denied"},401)
+    else:
+        POST_REQ = request.get_json()
+        new_artist = artist(
+            username = POST_REQ["username"],
+            bio = POST_REQ["bio"],
+            password = POST_REQ["password"]
+        )
+        db.session.add(new_artist)
+        db.session.commit()
+        return make_response(jsonify(new_artist.to_dict()),201)
+    
+# patch request to edit an artist in db
+@app.route('/api/artist/update/<int:artist_id>', methods=['PATCH'])
+def update_artist_with_ID(artist_id:int):
+    authorization = authorize_user()
+    if authorization.status_code == 401:
+        return make_response({"error": "access denied"},401)
+    else:
+        matching_artist = artist.query.filter(artist.id == artist_id).first()
+        if not matching_artist:
+            return make_response(jsonify({"error": f"Artist ID `{artist_id}` not found in database."}), 404)
+        PATCH_REQ = request.get_json()
+        for attribute in PATCH_REQ:
+            setattr(matching_artist, attribute, PATCH_REQ[attribute])
+        db.session.add(matching_artist)
+        db.session.commit()
+        return make_response(jsonify(matching_artist.to_dict()),200)
+
+
+# delete request to remove an artist from the db
+@app.route('/api/artist/delete/<int:artist_id>',methods=['DELETE'])
+def delete_artist(artist_id:int):
+    authorization = authorize_user()
+    if authorization.status_code == 401:
+        return make_response({"error": "access denied"},401)
+    else:
+        matching_artist = artist.query.filter(artist.id == artist_id).first()
+        if not matching_artist:
+            return make_response(jsonify({"error": f"Artist ID `{artist_id}` not found in database."}), 404)
+        db.session.delete(matching_artist)
+        db.session.commit()
+        return make_response(jsonify(matching_artist.to_dict()),200)
 
 """
 
