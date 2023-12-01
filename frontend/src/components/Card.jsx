@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Card({image}) {
+function Card({image , title, description, artist}) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isBouncing, setIsBouncing] = useState(false);
 
@@ -27,9 +27,9 @@ function Card({image}) {
               src={image}
               className="mb-2 rounded-b-md border-b-8 border-fuchsia-600 blur-lg brightness-75 duration-700 object-contain"
             />
-            <p className="absolute w-full text-center mt-48 font-light">Cat looking at cyberbutterfly</p>
+            <p className="absolute w-full text-center mt-48 font-light">{description}</p>
           <h2 className="mb-2 text-2xl font-light tracking-light text-white pt-2 text-center duration-700 ">
-            Artist
+            {artist}
           </h2>
         </>
       ) : (
@@ -39,7 +39,7 @@ function Card({image}) {
             className="mb-2 rounded-b-md border-b-8 border-fuchsia-600 duration-700 scale-100 hover:scale-110 object-contain"
           />
           <h2 className="mb-2 text-2xl font-normal tracking-light text-white text-center mt-3">
-            Image
+            {title}
           </h2>
         </>
       )}

@@ -1,7 +1,5 @@
 import Card from "../components/Card";
 
-
-
 function Home() {
 
   const image1 = 'https://static.displate.com/280x392/displate/2022-07-18/ed970c75e7c28f898755c7c437aa95a4_baab9fc4daba4f2dda2bfac1d8848aee.jpg';

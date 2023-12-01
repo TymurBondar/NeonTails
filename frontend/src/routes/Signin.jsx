@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../components/UserContext";
 
 function Signin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -16,7 +18,12 @@ function Signin() {
       });
 
       if (response.ok) {
-        const redirectLink = `/artist/${username}/`;
+        response.json().then((data) => {
+          const userData = { id: data.id, username: data.username };
+          localStorage.setItem("user", JSON.stringify(userData));
+          setUser(userData);
+        });
+        const redirectLink = `/`;
         navigate(redirectLink); // Redirect on success
       } else {
         // Handle errors (e.g., incorrect credentials)
